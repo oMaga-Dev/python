@@ -1,0 +1,49 @@
+#Função do cálculo a ser aplicado no caso, cálculo o valor venal de um imóvel rural
+def valor(a, b, c, d, e):
+    fr = a / 100
+    calc1 = ((d / c) * b) * fr
+    calc2 = ((e / c) * b) * fr
+    calc = max(calc1, calc2)
+    return calc
+
+#Inserção dos dados/valores
+
+porc = input('Informe a porcentagem: ')
+ha_mat = input('Informe a área da matrícula (Hectare): ')
+ha_itr = input('Informe a área do ITR (Hectare): ')
+vlr_itr = input('Informe o valor do imóvel no ITR: ')
+vlr_cert = input('Informe o valor da certidão de Guareí: ')
+
+#Estes IF servem para caso o usuário informe os dados com virgula (no caso seria uma STR)
+# o python já faça a conversão para float
+
+if not isinstance(porc, float):
+    porc = float(porc.replace(',', '.'))
+
+if not isinstance(ha_mat, float):
+    ha_mat = float(ha_mat.replace(',', '.'))
+
+if not isinstance(ha_itr, float):
+    ha_itr = float(ha_itr.replace(',', '.'))
+
+if not isinstance(vlr_itr, float):
+    vlr_itr = float(vlr_itr.replace(',', '.'))
+
+#Aqui é caso seja a variavel vlr_cer recebe vazio (no caso um enter) ou 0, pois esse campo não é obrigatório
+# dependendo da situação
+if vlr_cert != '' and vlr_cert != '0':
+    if not isinstance(vlr_cert, float):
+        vlr_cert = float(vlr_cert.replace(',', '.'))
+else:
+    vlr_cert = 0
+
+#Atribuições das funções já arredondando
+resultado = round(valor(porc, ha_mat, ha_itr, vlr_itr, vlr_cert), 2)
+
+#Formatando a variável resultado em STR com duas casas decimais
+texto_resultado = f'R$ {resultado:,.2f}'
+
+#Fomatando a variável texto_resultado para o nosso valor monetário
+texto_resultado = texto_resultado.replace('.', '_').replace(',', '.').replace('_', ',')
+
+print(f'Valor venal é {texto_resultado}')
