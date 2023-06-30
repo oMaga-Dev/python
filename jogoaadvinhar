@@ -1,0 +1,49 @@
+# Importando a função 'randint' do módulo 'random' para gerar números aleatórios
+from random import randint as rd
+
+# Importando o módulo 'math' para utilizar funções matemáticas
+import math
+
+# Exibindo um cabeçalho para o jogo da adivinhação
+print('-='*4, 'JOGO DA ADVINHAÇÃO', '-='*4)
+
+# Solicitando ao usuário o primeiro intervalo para gerar o número aleatório
+intervalo1 = int(input('Informe o primeiro intervalo: '))
+
+# Solicitando ao usuário o segundo intervalo para gerar o número aleatório
+intervalo2 = int(input('Informe o segundo intervalo: '))
+
+# Gerando um número aleatório dentro do intervalo informado pelo usuário
+numero_aleatorio = rd(intervalo1, intervalo2)
+
+# Calculando o número máximo de tentativas possíveis com base no intervalo
+tentativas = round(math.log(intervalo2 - intervalo1 + 1, 2))
+
+# Inicializando um contador de tentativas
+contador = 0
+
+# Exibindo a quantidade de tentativas disponíveis para o usuário
+print('Você tem {} tentativas'.format(tentativas))
+
+# Iniciando o loop para as tentativas do jogador
+while contador < tentativas:
+    # Solicitando ao jogador o seu palpite
+    aposta = int(input('Que número pensei? '))
+
+    # Incrementando o contador de tentativas
+    contador += 1
+
+    # Verificando se o palpite do jogador é igual ao número aleatório gerado
+    if aposta == numero_aleatorio:
+        print('Parabéns, você acertou com {} tentativas'.format(contador))
+        break
+    else:
+        # Caso o palpite seja diferente, informando ao jogador se o número é maior ou menor
+        if aposta > numero_aleatorio:
+            print('Você chutou muito alto, tente um número MENOR')
+        if aposta < numero_aleatorio:
+            print('Você chutou muito baixo, tente um número MAIOR')
+
+# Verificando se o jogador esgotou todas as tentativas disponíveis
+if tentativas == contador:
+    print('Você tentou todas as suas {} chances, mais sorte na próxima'.format(contador))
